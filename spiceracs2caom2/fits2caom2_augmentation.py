@@ -71,16 +71,16 @@ from caom2pipe import caom_composable as cc
 from spiceracs2caom2 import main_app
 
 
-__all__ = ['SpiceracsFits2caom2Visitor']
+__all__ = ['SpiceRACSFits2caom2Visitor']
 
 
-class SpiceracsFits2caom2Visitor(cc.Fits2caom2Visitor):
+class SpiceRACSFits2caom2Visitor(cc.Fits2caom2Visitor):
     def __init__(self, observation, **kwargs):
         super().__init__(observation, **kwargs)
 
     def _get_mapping(self, headers):
-        return main_app.SpiceracsMapping(self._storage_name, headers, self._clients, self._observable, self._observation)
+        return main_app.SpiceRACSMapping(self._storage_name, headers, self._clients, self._observable, self._observation)
 
 
 def visit(observation, **kwargs):
-    return SpiceracsFits2caom2Visitor(observation, **kwargs).visit()
+    return SpiceRACSFits2caom2Visitor(observation, **kwargs).visit()

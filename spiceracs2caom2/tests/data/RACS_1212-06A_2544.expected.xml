@@ -42,6 +42,7 @@
                       </caom2:axis2>
                     </caom2:axis>
                     <caom2:coordsys>ICRS</caom2:coordsys>
+                    <caom2:resolution>1.0</caom2:resolution>
                   </caom2:position>
                 </caom2:chunk>
               </caom2:chunks>

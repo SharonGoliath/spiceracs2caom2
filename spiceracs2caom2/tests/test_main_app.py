@@ -91,7 +91,7 @@ def pytest_generate_tests(metafunc):
 @patch('caom2utils.data_util.get_local_headers_from_fits')
 def test_main_app(header_mock, test_config, test_name):
     header_mock.side_effect = ac.make_headers_from_file
-    storage_name = main_app.SpiceracsName(entry=test_name)
+    storage_name = main_app.SpiceRACSName(entry=test_name)
     metadata_reader = rdc.FileMetadataReader()
     metadata_reader.set(storage_name)
     import logging
@@ -103,7 +103,6 @@ def test_main_app(header_mock, test_config, test_name):
         'metadata_reader': metadata_reader,
     }
     expected_fqn = f'{TEST_DATA_DIR}/{storage_name.obs_id}.expected.xml'
-    expected = mc.read_obs_from_file(expected_fqn)
     in_fqn = expected_fqn.replace('.expected', '.in')
     actual_fqn = expected_fqn.replace('expected', 'actual')
     if os.path.exists(actual_fqn):
@@ -112,17 +111,22 @@ def test_main_app(header_mock, test_config, test_name):
     if os.path.exists(in_fqn):
         observation = mc.read_obs_from_file(in_fqn)
     observation = fits2caom2_augmentation.visit(observation, **kwargs)
-    try:
-        compare_result = get_differences(expected, observation)
-    except Exception as e:
-        mc.write_obs_to_file(observation, actual_fqn)
-        raise e
-    if compare_result is not None:
-        mc.write_obs_to_file(observation, actual_fqn)
-        compare_text = '\n'.join([r for r in compare_result])
-        msg = (
-            f'Differences found in observation {expected.observation_id}\n'
-            f'{compare_text}'
-        )
-        raise AssertionError(msg)
+    if observation is None:
+        assert False, f'No observation generated for {test_name}'
+    else:
+        try:
+            if os.path.exists(expected_fqn):
+                expected = mc.read_obs_from_file(expected_fqn)
+            else:
+                mc.write_obs_to_file(observation, actual_fqn)
+                assert False, f'no {expected_fqn} for {test_name}'
+            compare_result = get_differences(expected, observation)
+        except Exception as e:
+            mc.write_obs_to_file(observation, actual_fqn)
+            raise e
+        if compare_result is not None:
+            mc.write_obs_to_file(observation, actual_fqn)
+            compare_text = '\n'.join([r for r in compare_result])
+            msg = f'Differences found in observation {expected.observation_id}\n{compare_text}'
+            raise AssertionError(msg)
     # assert False  # cause I want to see logging messages

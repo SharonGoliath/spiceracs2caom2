@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<caom2:Observation xmlns:caom2="http://www.opencadc.org/caom2/xml/v2.4" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="caom2:SimpleObservation" caom2:id="be40997e-c7f5-4ba5-b6b2-671e136688dc">
+  <caom2:collection>SPICE-RACS</caom2:collection>
+  <caom2:observationID>RACS_1146-25A_1648</caom2:observationID>
+  <caom2:metaRelease>2023-01-01T11:11:11.000</caom2:metaRelease>
+  <caom2:algorithm>
+    <caom2:name>exposure</caom2:name>
+  </caom2:algorithm>
+  <caom2:intent>science</caom2:intent>
+  <caom2:target>
+    <caom2:name>RACS_1146-25A_1648</caom2:name>
+    <caom2:type>field</caom2:type>
+  </caom2:target>
+  <caom2:planes>
+    <caom2:plane caom2:id="6c7b6ce2-af67-4b90-8e3b-bf06bca56d33">
+      <caom2:productID>polspec</caom2:productID>
+      <caom2:metaRelease>2023-01-01T11:11:11.000</caom2:metaRelease>
+      <caom2:dataRelease>2023-01-01T11:11:11.000</caom2:dataRelease>
+      <caom2:dataProductType>cube</caom2:dataProductType>
+      <caom2:calibrationLevel>2</caom2:calibrationLevel>
+      <caom2:artifacts>
+        <caom2:artifact caom2:id="34fda065-466f-486b-b53e-2b79604c8480">
+          <caom2:uri>casda:SPICE-RACS/RACS_1146-25A_1648_polspec.fits</caom2:uri>
+          <caom2:productType>science</caom2:productType>
+          <caom2:releaseType>data</caom2:releaseType>
+          <caom2:contentType>application/fits</caom2:contentType>
+          <caom2:contentLength>9728</caom2:contentLength>
+          <caom2:contentChecksum>md5:a5b6f675c32d49aae15df9ae9463f2ec</caom2:contentChecksum>
+          <caom2:parts>
+            <caom2:part caom2:id="06a0818d-7412-44a3-a348-c4e4f9be4e12">
+              <caom2:name>0</caom2:name>
+              <caom2:chunks>
+                <caom2:chunk caom2:id="dcbaa0d7-8d82-4fcc-b243-a3c9a64040a0">
+                  <caom2:naxis>2</caom2:naxis>
+                  <caom2:positionAxis1>1</caom2:positionAxis1>
+                  <caom2:positionAxis2>2</caom2:positionAxis2>
+                  <caom2:position>
+                    <caom2:axis>
+                      <caom2:axis1>
+                        <caom2:ctype>RA---SIN</caom2:ctype>
+                        <caom2:cunit>deg</caom2:cunit>
+                      </caom2:axis1>
+                      <caom2:axis2>
+                        <caom2:ctype>DEC--SIN</caom2:ctype>
+                        <caom2:cunit>deg</caom2:cunit>
+                      </caom2:axis2>
+                      <caom2:function>
+                        <caom2:dimension>
+                          <caom2:naxis1>1</caom2:naxis1>
+                          <caom2:naxis2>1</caom2:naxis2>
+                        </caom2:dimension>
+                        <caom2:refCoord>
+                          <caom2:coord1>
+                            <caom2:pix>1.0</caom2:pix>
+                            <caom2:val>179.796884</caom2:val>
+                          </caom2:coord1>
+                          <caom2:coord2>
+                            <caom2:pix>1.0</caom2:pix>
+                            <caom2:val>-22.476695</caom2:val>
+                          </caom2:coord2>
+                        </caom2:refCoord>
+                        <caom2:cd11>0.000694444444444444</caom2:cd11>
+                        <caom2:cd12>0.0</caom2:cd12>
+                        <caom2:cd21>0.0</caom2:cd21>
+                        <caom2:cd22>0.000694444444444444</caom2:cd22>
+                      </caom2:function>
+                    </caom2:axis>
+                    <caom2:coordsys>ICRS</caom2:coordsys>
+                  </caom2:position>
+                </caom2:chunk>
+              </caom2:chunks>
+            </caom2:part>
+          </caom2:parts>
+        </caom2:artifact>
+      </caom2:artifacts>
+    </caom2:plane>
+  </caom2:planes>
+</caom2:Observation>

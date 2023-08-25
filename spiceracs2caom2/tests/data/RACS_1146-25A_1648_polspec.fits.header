@@ -1,15 +1,15 @@
-# HDU 0 in RACS_1212-06A_2544_polspec.fits:
+# HDU 0 in RACS_1146-25A_1648_polspec.fits:
 SIMPLE  =                    T / conforms to FITS standard                      
 BITPIX  =                  -64 / array data type                                
 NAXIS   =                    2 / number of array dimensions                     
 NAXIS1  =                    1                                                  
 NAXIS2  =                    1                                                  
 EXTEND  =                    T                                                  
-OBJECT  = 'RACS_1212-06A_2544' / Gaussian ID                                    
+OBJECT  = 'RACS_1146-25A_1648' / Gaussian ID                                    
 CTYPE1  = 'RA---SIN'                                                            
 CTYPE2  = 'DEC--SIN'                                                            
-CRVAL1  =             184.7571                                                  
-CRVAL2  =            -7.262807                                                  
+CRVAL1  =           179.796884                                                  
+CRVAL2  =           -22.476695                                                  
 CDELT1  = 0.000694444444444444                                                  
 CDELT2  = 0.000694444444444444                                                  
 CRPIX1  =                    1                                                  
@@ -18,7 +18,7 @@ CUNTI1  = 'deg     '
 CUNTI2  = 'deg     '                                                            
 COMMENT Dummy image to indicate the pixel size and position                     
 
-# HDU 1 in RACS_1212-06A_2544_polspec.fits:
+# HDU 1 in RACS_1146-25A_1648_polspec.fits:
 XTENSION= 'BINTABLE'           / binary table extension                         
 BITPIX  =                    8 / array data type                                
 NAXIS   =                    2 / number of array dimensions                     

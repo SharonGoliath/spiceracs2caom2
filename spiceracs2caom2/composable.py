@@ -79,8 +79,9 @@ import logging
 import sys
 import traceback
 
+from caom2pipe.name_builder_composable import EntryBuilder
 from caom2pipe.run_composable import run_by_state, run_by_todo
-from spiceracs2caom2 import fits2caom2_augmentation
+from spiceracs2caom2 import fits2caom2_augmentation, main_app
 
 
 META_VISITORS = [fits2caom2_augmentation]
@@ -94,7 +95,12 @@ def _run():
     :return 0 if successful, -1 if there's any sort of failure. Return status
         is used by airflow for task instance management and reporting.
     """
-    return run_by_todo(meta_visitors=META_VISITORS, data_visitors=DATA_VISITORS)
+    builder = EntryBuilder(main_app.SpiceRACSName)
+    return run_by_todo(
+        name_builder=builder,
+        meta_visitors=META_VISITORS, 
+        data_visitors=DATA_VISITORS,
+    )
 
 
 def run():
@@ -112,7 +118,12 @@ def run():
 def _run_incremental():
     """Uses a state file with a timestamp to identify the work to be done.
     """
-    return run_by_state(meta_visitors=META_VISITORS, data_visitors=DATA_VISITORS)
+    builder = EntryBuilder(main_app.SpiceRACSName)
+    return run_by_state(
+        name_builder=builder,
+        meta_visitors=META_VISITORS, 
+        data_visitors=DATA_VISITORS,
+    )
 
 
 def run_incremental():

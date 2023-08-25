@@ -68,11 +68,11 @@
 #
 
 from caom2pipe import manage_composable as mc
-from spiceracs2caom2 import SpiceracsName
+from spiceracs2caom2 import SpiceRACSName
 
 
 def test_is_valid():
-    assert SpiceracsName('anything').is_valid()
+    assert SpiceRACSName('anything').is_valid()
     
 
 def test_storage_name(test_config):
@@ -82,9 +82,8 @@ def test_storage_name(test_config):
     for index, entry in enumerate(
         [test_f_name, test_uri, f'https://localhost:8020/{test_f_name}', f'vos:goliaths/test/{test_f_name}']
     ):
-        test_subject = SpiceracsName(entry)
+        test_subject = SpiceRACSName(entry)
         assert test_subject.file_id == test_f_name.replace('.fits', '').replace('.header', ''), f'wrong file id {index}'
-        # assert test_subject.file_uri == f'{test_uri}.header', f'wrong uri {test_uri} {test_subject}'
         assert test_subject.file_uri == test_uri, f'wrong uri {index}'
         assert test_subject.obs_id == test_obs_id, f'wrong obs id {index}'
         assert test_subject.product_id == 'polspec', f'wrong product id {index}'

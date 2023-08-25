@@ -80,12 +80,12 @@ from caom2pipe import manage_composable as mc
 
 
 __all__ = [
-    'SpiceracsMapping',
-    'SpiceracsName',
+    'SpiceRACSMapping',
+    'SpiceRACSName',
 ]
 
 
-class SpiceracsName(mc.StorageName):
+class SpiceRACSName(mc.StorageName):
     """Naming rules:
     - support mixed-case file name storage, and mixed-case obs id values
     - support uncompressed files in storage
@@ -106,7 +106,7 @@ class SpiceracsName(mc.StorageName):
         return True
 
 
-class SpiceracsMapping(cc.TelescopeMapping):
+class SpiceRACSMapping(cc.TelescopeMapping):
     def __init__(self, storage_name, headers, clients, observable, observation):
         super().__init__(storage_name, headers, clients, observable, observation)
 
@@ -115,15 +115,25 @@ class SpiceracsMapping(cc.TelescopeMapping):
         Observation level."""
         self._logger.debug('Begin accumulate_bp.')
         super().accumulate_blueprint(bp)
-        bp.configure_position_axes((1, 2))
-        bp.configure_time_axis(3)
-        bp.configure_energy_axis(4)
-        bp.configure_polarization_axis(5)
-        bp.configure_observable_axis(6)
+        bp.set('Observation.target.type', 'field')
+        # JW - SPICE-RACS is public data
+        release_date = '2023-01-01T11:11:11'
+        bp.set('Observation.metaRelease', release_date)
+        bp.set('Plane.dataRelease', release_date)
+        bp.set('Plane.metaRelease', release_date)
         bp.set('Plane.calibrationLevel', CalibrationLevel.CALIBRATED)
         bp.set('Plane.dataProductType', DataProductType.CUBE)
         bp.set('Artifact.productType', ProductType.SCIENCE)
         bp.set('Artifact.releaseType', ReleaseType.DATA)
+
+        bp.configure_position_axes((1, 2))
+        bp.clear('Chunk.position.axis.function.cd11')
+        bp.clear('Chunk.position.axis.function.cd22')
+        bp.add_attribute('Chunk.position.axis.function.cd11', 'CDELT1')
+        bp.set('Chunk.position.axis.function.cd12', 0.0)
+        bp.set('Chunk.position.axis.function.cd21', 0.0)
+        bp.add_attribute('Chunk.position.axis.function.cd22', 'CDELT2')
+
 
         self._logger.debug('Done accumulate_bp.')
 
