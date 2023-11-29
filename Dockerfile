@@ -1,4 +1,4 @@
-ARG CADC_PYTHON_VERSION=3.11
+ARG CADC_PYTHON_VERSION=3.12
 FROM opencadc/matplotlib:${CADC_PYTHON_VERSION}-slim as builder
 
 RUN apt-get update --no-install-recommends && \

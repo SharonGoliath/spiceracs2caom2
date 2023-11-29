@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # ***********************************************************************
 # ******************  CANADIAN ASTRONOMY DATA CENTRE  *******************
 # *************  CENTRE CANADIEN DE DONNÉES ASTRONOMIQUES  **************
@@ -15,7 +14,7 @@
 #  respect to the software,             soit, concernant le logiciel,
 #  including without limitation         y compris sans restriction
 #  any warranty of merchantability      toute garantie de valeur
-#  or fitness for a particular          marchande ou de pertinence
+#  or fitness for 1a particular          marchande ou de pertinence
 #  purpose. NRC shall not be            pour un usage particulier.
 #  liable in any event for any          Le CNRC ne pourra en aucun cas
 #  damages, whether direct or           être tenu responsable de tout
@@ -68,7 +67,7 @@
 #
 
 """
-This module implements the ObsBlueprint mapping, as well as the workflow 
+This module implements the ObsBlueprint mapping, as well as the workflow
 entry point that executes the workflow.
 """
 
@@ -98,7 +97,7 @@ class SpiceRACSName(mc.StorageName):
 
     def set_obs_id(self, **kwargs):
         self._obs_id = '_'.join(ii for ii in self._file_id.split('_')[:-1])
-    
+
     def set_product_id(self, **kwargs):
         self._product_id = self._file_id.split('_')[-1]
 
@@ -107,8 +106,8 @@ class SpiceRACSName(mc.StorageName):
 
 
 class SpiceRACSMapping(cc.TelescopeMapping):
-    def __init__(self, storage_name, headers, clients, observable, observation):
-        super().__init__(storage_name, headers, clients, observable, observation)
+    def __init__(self, storage_name, headers, clients, observable, observation, config):
+        super().__init__(storage_name, headers, clients, observable, observation, config)
 
     def accumulate_blueprint(self, bp):
         """Configure the telescope-specific ObsBlueprint at the CAOM model
@@ -137,8 +136,5 @@ class SpiceRACSMapping(cc.TelescopeMapping):
 
         self._logger.debug('Done accumulate_bp.')
 
-    def update(self, file_info):
-        """Called to fill multiple CAOM model elements and/or attributes (an n:n relationship between TDM attributes
-         and CAOM attributes).
-        """
-        return super().update(file_info)
+    def _update_artifact(self, artifact):
+        pass

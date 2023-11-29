@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # ***********************************************************************
 # ******************  CANADIAN ASTRONOMY DATA CENTRE  *******************
 # *************  CENTRE CANADIEN DE DONNÉES ASTRONOMIQUES  **************
@@ -78,18 +77,15 @@ from caom2pipe import reader_composable as rdc
 import glob
 import os
 
-THIS_DIR = os.path.dirname(os.path.realpath(__file__))
-TEST_DATA_DIR = os.path.join(THIS_DIR, 'data')
-PLUGIN = os.path.join(os.path.dirname(THIS_DIR), 'main_app.py')
-
 
 def pytest_generate_tests(metafunc):
-    obs_id_list = glob.glob(f'{TEST_DATA_DIR}/*.fits.header')
+    test_data_dir = f'{metafunc.config.invocation_dir}/data'
+    obs_id_list = glob.glob(f'{test_data_dir}/*.fits.header')
     metafunc.parametrize('test_name', obs_id_list)
 
 
 @patch('caom2utils.data_util.get_local_headers_from_fits')
-def test_main_app(header_mock, test_config, test_name):
+def test_main_app(header_mock, test_data_dir, test_config, test_name):
     header_mock.side_effect = ac.make_headers_from_file
     storage_name = main_app.SpiceRACSName(entry=test_name)
     metadata_reader = rdc.FileMetadataReader()
@@ -101,8 +97,9 @@ def test_main_app(header_mock, test_config, test_name):
     kwargs = {
         'storage_name': storage_name,
         'metadata_reader': metadata_reader,
+        'config': test_config,
     }
-    expected_fqn = f'{TEST_DATA_DIR}/{storage_name.obs_id}.expected.xml'
+    expected_fqn = f'{test_data_dir}/{storage_name.obs_id}.expected.xml'
     in_fqn = expected_fqn.replace('.expected', '.in')
     actual_fqn = expected_fqn.replace('expected', 'actual')
     if os.path.exists(actual_fqn):
